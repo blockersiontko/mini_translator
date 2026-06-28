@@ -73,8 +73,7 @@ GitHub: https://github.com/blockersiontko/mini_translator
 
 ## Future Improvements
 
-* Add more animals.
-* Make the translator case-insensitive.
+* Create a GUI.
 
 ## License
 
