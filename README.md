@@ -11,15 +11,18 @@ A simple Python program that translates Polish animal names into English using a
 
 ## Animals Included
 
-| Polish     | English |
-| ---------- | ------- |
-| kot        | cat     |
-| pies       | dog     |
-| panda      | panda   |
-| lis        | fox     |
-| wilk       | wolf    |
-| wąż        | snake   |
-| niedźwiedź | bear    |
+| Polish       | English |
+| ----------   | ------- |
+| kot          | cat     |
+| pies         | dog     |
+| panda        | panda   |
+| lis          | fox     |
+| wilk         | wolf    |
+| wąż          | snake   |
+| niedźwiedź   | bear    |
+| koń          | horse   |
+| konik morski | seahorse|
+| ryba         | fish    |
 
 ## Installation
 
