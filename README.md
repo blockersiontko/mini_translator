@@ -81,24 +81,15 @@ GitHub: https://github.com/blockersiontko/mini_translator
 ### LOGIC
 
 * Case Insensitive Dictionary - (requests.structures.CaseInsensitiveDict)
+* set() and get()
 * dictionary.py
 
-## Future Improvements
+## Future Improvements - V2
 
-* Make GUI cleaner
 * Both side translation
 * Copy results to clipboard
 * API Connection
-* Clear button
 * Dark Theme
-
-## Considered Features
-
-* Live translating
-* Synonyms support
-* Suggestions when misspell
-* Translation history
-* Adding your own words from GUI level
 
 ## License
 
