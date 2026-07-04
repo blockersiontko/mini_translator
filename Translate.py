@@ -1,4 +1,4 @@
 from dictionary import slownik
 
-def translate(textInput):
-    return slownik.get(textInput, f"Nie znam takiego słowa!")
+def translate(_polishWord):
+    return slownik.get(_polishWord, f"Nie znam takiego słowa!")
