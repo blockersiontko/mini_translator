@@ -1,35 +1,48 @@
+import ctypes # window title colors
+import os # filepath
+import json # metadata
+
 from tkinter import *
 from tkinter import ttk
-from translate import translate
+from Translate import translate
 
 class TranslatorApp:
     def __init__(self):
         self.root = Tk()
-        self.root.title("Mini Translator v1.0.9")
+
+        metadata = self.get_metadata()
+
+        self.root.title(f"{metadata['name']} v{metadata['version']}")
+        self.root.iconbitmap("open_book_icon.ico")
         self.root.geometry("280x150")
         self.root.resizable(False, False)
 
         self.is_dark_mode = False
 
         self.lightMode = {
-            'background': 'white',
-            'foreground': 'black'
+            'bg': '#FFFFFF',
+            'fg': '#000000',
+            'bc' : '#D3D3D3',
+            'hv' : '#D3D3D3'
             }
 
         self.darkMode = {
-            'bg': '#333',
-            'fg': 'white'
+            'bg': '#333333',
+            'fg': '#FFFFFF',
+            'bc' : '#7d7d7d',
+            'hv' : '#808080'
             }
 
         self.style = ttk.Style()
-        self.style.configure("BW.TLabel", foreground="black", background="white")
 
         self.polishWord = StringVar()
 
         self.englishWord = StringVar()
 
-        self.build_ui()
+        self.style.theme_use("clam")
+
         self.apply_theme(self.lightMode)
+        self.build_ui()
 
         self.root.bind("<Return>", lambda event: self.translate_word())
 
@@ -59,7 +72,7 @@ class TranslatorApp:
         self.translateButton.grid(column=1, row=2, sticky="e")
 
         # 4TH ROW
-        self.themeButton = ttk.Button(self.mainframe, text ="Toggle Theme")
+        self.themeButton = ttk.Button(self.mainframe, text="Toggle Theme", command=self.toggle_theme)
         self.themeButton.grid(column=0, row=3, columnspan=2, sticky="new")
 
     # THEME
@@ -72,13 +85,57 @@ class TranslatorApp:
             self.is_dark_mode = True
 
     def apply_theme(self, theme):
-        self.root.config()
+        self.root.config(bg=theme['bg'])
+        self.style.configure("TFrame", background=theme['bg'], bordercolor=theme['bc'], lightcolor=theme['bc'], darkcolor=theme['bc'])
+        self.style.configure("TLabel", background=theme['bg'], foreground=theme['fg'], bordercolor=theme['bc'], lightcolor=theme['bc'], darkcolor=theme['bc'])
+        self.style.configure("TButton", background=theme['bg'], foreground=theme['fg'], bordercolor=theme['bc'], lightcolor=theme['bc'], darkcolor=theme['bc'])
+        self.style.configure("TEntry", fieldbackground=theme['bg'], foreground=theme['fg'], bordercolor=theme['bc'], lightcolor=theme['bc'], darkcolor=theme['bc'])
+
+        self.style.map(
+        "TButton",
+        background=[
+            ("active", theme['hv'])
+        ]
+        )
+
+        self.style.configure(
+        "TEntry",
+        fieldbackground=theme['bg'],
+        foreground=theme['fg'],
+        bordercolor=theme['bc'],
+        lightcolor=theme['bc'],
+        darkcolor=theme['bc']
+        )
+
+        # WINDOWS TITLE BAR
+
+        hwnd = ctypes.windll.user32.GetParent(self.root.winfo_id())
+
+        color = theme['bg'].lstrip('#')
+        r = int(color[0:2], 16)
+        g = int(color[2:4], 16)
+        b = int(color[4:6], 16)
+
+        dwmapi = ctypes.windll.dwmapi
+        dwmapi.DwmSetWindowAttribute(
+            hwnd,
+            35,
+            ctypes.byref(ctypes.c_int(r | (g << 8) | (b << 16))),
+            ctypes.sizeof(ctypes.c_int)
+        )
 
     # LOGIC
     def translate_word(self):
         _polishWord = self.polishWord.get()
         _englishWord = self.englishWord.get()
         self.englishWord.set(translate(_polishWord))
+
+    # METADATA
+    def get_metadata(self):
+        path = os.path.join(os.path.dirname(__file__), "metadata.json")
+
+        with open(path, "r", encoding="utf-8") as file:
+            return json.load(file)
 
     def run(self):
         self.root.mainloop()

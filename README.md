@@ -8,6 +8,8 @@ A simple Python program that translates Polish words into English words. Doesn't
 * Validates user input.
 * Repeats the prompt until a valid animal name is entered.
 * Uses a Python dictionary for fast lookups.
+* Light and dark theme, switchable via a "Toggle theme" button.
+* Custom ap icon and a colored title bar that matches the active theme (Windows only).
 
 ## Words Included
 
@@ -72,6 +74,9 @@ GitHub: https://github.com/blockersiontko/mini_translator
 * tkinter
 * ttk
 * grid
+* os
+* json
+* ctypes (Windows DWM API for title bar theming)
 
 ### LIBRARIES
 
@@ -84,12 +89,16 @@ GitHub: https://github.com/blockersiontko/mini_translator
 * set() and get()
 * dictionary.py
 
+### METADATA
+
+* metadata.json - app name/version loaded from 'metadata.json'
+
 ## Future Improvements - V2
 
 * Both side translation
 * Copy results to clipboard
 * API Connection
-* Dark Theme
+* Color the title bar/Make the program work (Linux + macOS)
 
 ## License
 
